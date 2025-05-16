@@ -9,13 +9,15 @@ class InicioPage extends HTMLElement {
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: "open" });
+        //Utiliza un patrón Flux/Redux para gestionar el estado de la aplicación mediante un staore
+        //Se suscribe a cambios en el store para volver a renderizar automáticamente cuando el estado cambie.
         store.subscribe(() => this.render());
     }
-
+//lo renderiza 
     connectedCallback() {
         this.render();
     }
-
+//Obtiene el estado actual del store.
     render() {
         const state = store.getState();
         const { plants, gardenPlants, gardenName } = state;
@@ -23,9 +25,11 @@ class InicioPage extends HTMLElement {
         if (!plants || !gardenPlants) return;
 
         const selectedPlants = plants
+        //Filtra las plantas para mostrar solo las que estén incluidas en gardenPlants
             .filter((p: Plant) => gardenPlants.includes(p.common_name))
+            //Ordena las plantas alfabéticamente por nombre común.
             .sort((a: Plant, b: Plant) => a.common_name.localeCompare(b.common_name));
-
+//estilo
         this.shadow.innerHTML = `
             <style>
                 :host {
@@ -121,8 +125,8 @@ class InicioPage extends HTMLElement {
                 }
             </style>
 
-            <div class="overlay"></div>
-            <h1>🌼 Jardín: ${gardenName || 'Mi Jardín Virtual'} 🌷</h1>
+            
+            <h1>🌼 Jardín: ${gardenName || ''} 🌷</h1>
             <div class="plant-list">
                 ${selectedPlants.map((p: Plant) => `
                     <div class="plant-card">

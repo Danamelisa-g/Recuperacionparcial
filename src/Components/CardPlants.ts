@@ -1,5 +1,5 @@
-// src/components/PlantCard.ts
 
+//definimos el componente 
 class CardPlants extends HTMLElement {
   shadow: ShadowRoot;
 
@@ -7,16 +7,17 @@ class CardPlants extends HTMLElement {
       super();
       this.shadow = this.attachShadow({ mode: "open" });
   }
-
+  //va hasta aqui
+//ciclo de vida se ejecuta automáticamente cuando el componente se inserta en el DOM
   connectedCallback() {
       this.render();
   }
-
+//Obtiene los atributos (data-name, data-image, data-type) que se le pasan al componente y construye el HTML interno.
   render() {
       const name = this.getAttribute("data-name") || "";
       const img = this.getAttribute("data-image") || "";
       const type = this.getAttribute("data-type") || "";
-
+//todo esto es estilo
       this.shadow.innerHTML = `
           <style>
               :host {

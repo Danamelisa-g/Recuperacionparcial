@@ -2,7 +2,7 @@
 
 import { AppDispatcher, Action } from './Dispatcher';
 import { Plant } from '../services/Plants';
-
+// lo actualiza en respuesta a las acciones despachadas.
 export type State = {
   plants: Plant[];
   gardenPlants: string[];
